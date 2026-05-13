@@ -7,8 +7,6 @@
 load data.mat
 
 %% Plot bar graphs of IC50, MIC
-% Not enough info to interpolate to find WT resistance values 
-% because concentrations chosen to fit CF strains
 
 % resistance bar graphs of each strain within each clade
 xLoc = [0.5 1 1.5 2.5 3 3.5 4.5 5 5.5];
@@ -71,7 +69,7 @@ for k = 1:size(avg,3)
                 yticks([0 150 300 450 600 750])
             else
                 ylim([0 3400])
-                yticks([0 750 1500 2250 3000])
+                yticks([0 500 1000 1500 2000 2500 3000])
             end
         else
             if n == 1
@@ -85,13 +83,17 @@ for k = 1:size(avg,3)
                 yticks([0 150 300 450])
             else
                 ylim([0 2500])
-                yticks([0 1250 2500])
+                yticks([0 500 1000 1500 2000 2500])
             end
         end
         ylabel([drugs{n}, ' (\mug/mL)'])
         hh=gca;
         hh.XAxis.TickLength = [0 0];
-    
+        
+        % PAO1 average IC50 of 3 replicates
+        if k > 1
+            plot([-1,12],[avg(11,n,k),avg(11,n,k)],':k','LineWidth',3)
+        end
 
         set(findall(gcf,'-property','FontSize'),'FontSize',28)
         
